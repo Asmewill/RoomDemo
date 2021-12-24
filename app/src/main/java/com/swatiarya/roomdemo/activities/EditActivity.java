@@ -9,11 +9,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.swatiarya.roomdemo.R;
 import com.swatiarya.roomdemo.constants.Constants;
 import com.swatiarya.roomdemo.database.AppDatabase;
 import com.swatiarya.roomdemo.database.AppExecutors;
-import com.swatiarya.roomdemo.model.Person;
-import com.swatiarya.roomdemo.R;
+import com.swatiarya.roomdemo.model.User;
 
 public class EditActivity extends AppCompatActivity {
     EditText name, email, pincode, city, phoneNumber;
@@ -40,17 +40,15 @@ public class EditActivity extends AppCompatActivity {
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    Person person = mDb.personDao().loadPersonById(mPersonId);
-                    populateUI(person);
+                    User user = mDb.userDao().loadUserById(mPersonId);
+                    populateUI(user);
                 }
             });
-
-
         }
 
     }
 
-    private void populateUI(Person person) {
+    private void populateUI(User person) {
 
         if (person == null) {
             return;
@@ -79,28 +77,32 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void onSaveButtonClicked() {
-        final Person person = new Person(
-                name.getText().toString(),
-                email.getText().toString(),
-                phoneNumber.getText().toString(),
-                pincode.getText().toString(),
-                city.getText().toString());
-
+//        final Person person = new Person(
+//                name.getText().toString(),
+//                email.getText().toString(),
+//                phoneNumber.getText().toString(),
+//                pincode.getText().toString(),
+//                city.getText().toString());
+       final User person=new User();
+        person.setName(name.getText().toString());
+        person.setEmail(email.getText().toString());
+        person.setNumber(phoneNumber.getText().toString());
+        person.setPincode(pincode.getText().toString());
+        person.setCity(city.getText().toString());
+        person.setAge(18);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if (!intent.hasExtra(Constants.UPDATE_Person_Id)) {
-                    mDb.personDao().insertPerson(person);
+                    mDb.userDao().insertUser(person);
                 } else {
                     person.setId(mPersonId);
-                    mDb.personDao().updatePerson(person);
+                    mDb.userDao().updateUser(person);
                 }
                 finish();
             }
         });
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

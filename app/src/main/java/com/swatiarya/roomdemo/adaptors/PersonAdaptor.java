@@ -11,18 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.swatiarya.roomdemo.R;
 import com.swatiarya.roomdemo.activities.EditActivity;
 import com.swatiarya.roomdemo.constants.Constants;
 import com.swatiarya.roomdemo.database.AppDatabase;
-import com.swatiarya.roomdemo.database.AppExecutors;
-import com.swatiarya.roomdemo.model.Person;
-import com.swatiarya.roomdemo.R;
+import com.swatiarya.roomdemo.model.User;
 
 import java.util.List;
 
 public class PersonAdaptor extends RecyclerView.Adapter<PersonAdaptor.MyViewHolder> {
     private Context context;
-    private List<Person> mPersonList;
+    private List<User> mPersonList;
 
     public PersonAdaptor(Context context) {
         this.context = context;
@@ -53,12 +52,12 @@ public class PersonAdaptor extends RecyclerView.Adapter<PersonAdaptor.MyViewHold
 
     }
 
-    public void setTasks(List<Person> personList) {
+    public void setTasks(List<User> personList) {
         mPersonList = personList;
         notifyDataSetChanged();
     }
 
-    public List<Person> getTasks() {
+    public List<User> getTasks() {
 
         return mPersonList;
     }

@@ -3,8 +3,8 @@ package com.swatiarya.roomdemo.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "person")
-public class Person {
+@Entity(tableName = "user")
+public class User {
     @PrimaryKey(autoGenerate = true)
     int id;
     String name;

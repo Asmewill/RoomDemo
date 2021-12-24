@@ -10,12 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-
+import com.swatiarya.roomdemo.R;
 import com.swatiarya.roomdemo.adaptors.PersonAdaptor;
 import com.swatiarya.roomdemo.database.AppDatabase;
 import com.swatiarya.roomdemo.database.AppExecutors;
-import com.swatiarya.roomdemo.model.Person;
-import com.swatiarya.roomdemo.R;
+import com.swatiarya.roomdemo.model.User;
 
 import java.util.List;
 
@@ -61,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         int position = viewHolder.getAdapterPosition();
-                        List<Person> tasks = mAdapter.getTasks();
-                        mDb.personDao().delete(tasks.get(position));
+                        List<User> tasks = mAdapter.getTasks();
+                        mDb.userDao().delete(tasks.get(position));
                         retrieveTasks();
                     }
                 });
@@ -81,17 +80,14 @@ public class MainActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                final List<Person> persons = mDb.personDao().loadAllPersons();
+                final List<User> persons = mDb.userDao().loadAllUsers();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         mAdapter.setTasks(persons);
                     }
                 });
             }
         });
-
-
     }
 }
